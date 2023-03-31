@@ -17,8 +17,19 @@ function App() {
   const [items, setItems] = useState(defaultItems);
 
   const itemComponents = items.map(item => {
+    const handleChange = () =>{
+      setItems(items.map(newItem => {
+        if (newItem.id === item.id) {
+          return { ...newItem, done: !item.done };
+        }
+        return newItem;
+      }));
+    };
+
     return (
-      <div><input type="checkbox" checked={item.done}/>{item.text}</div>
+      <div key={item.id}>
+        <input type="checkbox" checked={item.done} onChange={handleChange} />
+        {item.text}</div>
     );
   }); 
 
